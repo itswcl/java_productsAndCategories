@@ -104,5 +104,34 @@ public class MainController {
 
 	}
 
-
+	// ---------- Edit Page -----------------
+//		// render page
+		@GetMapping("/category/{id}")
+		public String updateCategoryForm(
+				@PathVariable("id") Long id,
+				Model model) {
+			
+			Category category = cateService.findCategoryById(id);
+			List<Product> products = proService.findProducts();
+			
+			model.addAttribute("category", category);
+			model.addAttribute("products",products);
+			
+			return "category/show.jsp";
+		}
+		
+		// use the get request to update product attribute
+		@GetMapping("/category/addProduct/{id}")
+		public String updateCategoryPro(
+				@PathVariable("id") Long cateId,
+				@RequestParam(name = "products") Product product) {
+//				
+			Category category = cateService.findCategoryById(cateId);
+			
+			category.getProducts().add(product);
+			
+			cateService.createAndUpdateCategory(category);
+//			
+			return "redirect:/category/{id}";
+		}
 }
