@@ -31,7 +31,9 @@ public class Category {
     @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "categories_products", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	@JoinTable(name = "categories_products",
+	joinColumns = @JoinColumn(name = "category_id"),
+	inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products;
 
 	public Category() {
